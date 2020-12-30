@@ -16,7 +16,8 @@ public class PlanszaRepository {
         String katalogPoziomow = "levels";
         Path sciezkaPoziomu = Paths.get(katalogPoziomow, nazwaPliku);
         Poziom poziom;
-        String[][] polaPlanszyString;
+        //String[][] polaPlanszyString;
+        String[][] polaPlanszyString = new String[0][0];
         try {
             String dane = Files.readString(sciezkaPoziomu, StandardCharsets.UTF_8);
             String[] wiersze = dane.split(System.getProperty("line.separator"));
@@ -25,12 +26,13 @@ public class PlanszaRepository {
             for (int i = 0; i < wiersze.length; i++) {
                 polaPlanszyString[i] = wiersze[i].split(",");
             }
-            poziom = new Poziom(wymiary, polaPlanszyString);
-            poziomy.add(poziom);
+            /*poziom = new Poziom(wymiary, polaPlanszyString);
+            poziomy.add(poziom);*/
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return poziomy.get(0);
+        //return poziomy.get(0);
+        return new Poziom(10, 5, polaPlanszyString);
     }
 
 

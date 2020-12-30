@@ -17,8 +17,10 @@ public class App {
         ramka.setVisible(true);
 
         Plansza plansza = new Plansza(planszaService.wczytajPoziom());
+        plansza.utworzTabelePol(10, 5);
         plansza.setLocation(100,100);
-        plansza.setSize(600, 400);
+        plansza.setSize(620, 400);
+
 
         ramka.add(plansza);
     }

@@ -5,9 +5,9 @@ public class Poziom {
     int wymiarY;
     String[][] polaPoziomu;
 
-    public Poziom(String[] wymiaryPoziomu, String[][] polaPoziomu) {
-        this.wymiarX = Integer.parseInt(wymiaryPoziomu[0]);
-        this.wymiarY = Integer.parseInt(wymiaryPoziomu[1]);
+    public Poziom(int x, int y, String[][] polaPoziomu) {
+        this.wymiarX = x;
+        this.wymiarY = y;
         this.polaPoziomu = polaPoziomu;
     }
 }

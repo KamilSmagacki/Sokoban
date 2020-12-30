@@ -1,4 +1,4 @@
-package domain.przeszkoda;
+package domain.pole;
 
 public class Pole {
     int width;
@@ -10,6 +10,9 @@ public class Pole {
     //3 - ziutek
     //4 - cel
     String rodzaj;
+
+    public Pole() {
+    }
 
     public Pole(String rodzaj) {
         this.width = width;

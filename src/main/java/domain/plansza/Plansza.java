@@ -1,45 +1,54 @@
 package domain.plansza;
 
-import domain.przeszkoda.Pole;
+import domain.pole.Pole;
 
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import javax.swing.*;
+import java.awt.*;
 
-public class Plansza {
+public class Plansza extends JPanel {
     int width;
     int height;
+    String[][] polaPlanszyString;
+
     Pole[][] polaPlanszy;
 
-    public Plansza(int width, int height) {
-        this.width = width;
-        this.height = height;
-
-        polaPlanszy = new Pole[5][5];
+    public Plansza(Poziom poziom) {
+        this.width = poziom.wymiarX;
+        this.height = poziom.wymiarY;
+        this.polaPlanszyString = poziom.polaPoziomu;
+        polaPlanszy = new Pole[width][height];
     }
 
-    public void wczytajPoziom() {
-        String nazwaPliku = "level_01.csv";
-        String katalogPoziomow = "levels";
-        Path sciezkaPoziomu = Paths.get(katalogPoziomow, nazwaPliku);
-        String[][] polaPlanszyString;
-        try {
-            String dane = Files.readString(sciezkaPoziomu, StandardCharsets.UTF_8);
-            String[] wiersze = dane.split(System.getProperty("line_separator"));
-            polaPlanszyString = new String[wiersze.length][];
-            for (int i = 0; i < wiersze.length; i++) {
-                polaPlanszyString[i] = wiersze[i].split(",");
-            }
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        //utworzPlanszeObiektow(polaPlanszyString);
+        rysujPlansze(g);
+    }
 
-            for (int i = 0; i < polaPlanszyString.length; i++) {
-                for (int j = 0; j < polaPlanszyString[i].length; j++) {
-                    polaPlanszy[i][j] = new Pole(polaPlanszyString[i][j]);
-                }
+    private void utworzPlanszeObiektow(String[][] polaPlanszy) {
+        for (int i = 0; i < polaPlanszy.length; i++) {
+            for (int j = 0; j < polaPlanszy[i].length; j++) {
+                this.polaPlanszy[i][j] = new Pole(polaPlanszy[i][j]);
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
+    }
+
+    private void rysujPlansze(Graphics g) {
+        setBorder(BorderFactory.createLineBorder(Color.BLUE, 2));
+        //g.drawLine(10, 10, 30, 30);
+
+        // narysuj siatke planszy na podstawie tabeli polaPlanszy[][]
+        int startX = 10;
+        int posX;
+        int posY = 10;
+        int width = 60;
+        int height = 60;
+        for (int i = 0; i < 5; i++) {
+            posX = startX + i * width;
+            g.drawRect(posX, posY, width, height);
+        }
+
+
     }
 }
